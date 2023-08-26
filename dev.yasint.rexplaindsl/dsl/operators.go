@@ -34,7 +34,7 @@ func EitherStr(strings ...string) api.Expression {
 	}
 }
 
-func EitherStringsSet(strings []string) api.Expression {
+func EitherStrSet(strings []string) api.Expression {
 	trie := &complex.TrieExpression{}
 	trie.InsertAll(strings)
 	return api.Expression{

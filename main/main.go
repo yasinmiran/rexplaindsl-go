@@ -10,6 +10,7 @@ import (
 
 func main() {
 	dateMatchingExample()
+	DoubleNumberMatchingWith1to3FractionDigits()
 }
 
 func dateMatchingExample() {
@@ -32,9 +33,21 @@ func dateMatchingExample() {
 		),
 	).Compile()
 
-	fmt.Println(assertEquals("^(?:2020|201[2-9])\\-(?:Apr|Feb|J(?:an|u[ln])|Ma[ry]|"+
-		"Nov|Oct|Sep)\\-(?:(?:0?[1-9])|(?:3[01]|[12][0-9]))$", expression.RegexExpression()))
+	fmt.Println(assertEquals("^(?:202[0-3]|201[2-9])\\-(?:Ap"+
+		"r|Feb|J(?:an|u[ln])|Ma[ry]|Nov|Oct|Sep)\\-(?:(?:0?[1-9])"+
+		"|(?:3[01]|[12][0-9]))$", expression.RegexExpression()))
 
+}
+
+func DoubleNumberMatchingWith1to3FractionDigits() {
+	pattern := api.NewReXPlainDSL(
+		ExactWordBoundary(
+			IntegerRange(0, 1000),
+			Literal("."),
+			Between(1, 3, Digit()),
+		),
+	).Compile().PatternInstance()
+	fmt.Println(pattern.String())
 }
 
 func assertEquals(expected string, actual string) bool {
